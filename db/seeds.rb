@@ -1,7 +1,10 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+Restaurant.create(name: 'パスタ食堂', photo: 'pasta.jpg', address: '〒120-0034 東京都足立区千住１丁目２０', lat: 35.748431, lng: 139.801434)
+Restaurant.create(name: 'イタリアンピザ', photo: 'Italianpizza.jpg', address: '〒150-0002 東京都渋谷区渋谷１丁目15-9', lat: 35.6606452, lng: 139.7033830)
+Restaurant.create(name: '寿司銀', photo: 'sushi.jpg', address: '〒103-0027 東京都中央区日本橋３丁目２', lat: 35.680757, lng: 139.771170)
+Restaurant.create(name: '富よし そば', photo: 'soba.jpg', address: '〒140-0014 東京都品川区大井１丁目４４', lat: 35.604596, lng: 139.732780)
+Restaurant.create(name: '和食 えがし', photo: 'japanese-meal.jpg', address: '〒169-0073 東京都新宿区百人町１丁目２', lat: 35.699461, lng: 139.701787)
+Restaurant.create(name: '九月堂 らーめん', photo: 'ramen.jpg', address: '〒100-0006 東京都千代田区有楽町２丁目５−１', lat: 35.673322, lng: 139.762620)
+Restaurant.create(name: '鍋堂 池袋店', photo: 'nabe.jpg', address: '〒171-0014 東京都豊島区池袋２丁目５１', lat: 35.733893, lng: 139.710357)
+Restaurant.create(name: 'ドリア&Cafe', photo: 'doria.jpg', address: '〒101-0044 東京都千代田区鍛冶町２丁目８', lat: 35.692384, lng: 139.772418)
+Restaurant.create(name: 'cafe&coffee 銀座', photo: 'cafe.jpg', address: '〒104-0061 東京都中央区銀座２丁目１１', lat: 35.672450, lng: 139.768844)
+Restaurant.create(name: '焼鳥日高', photo: 'yakitorihidaka.jpg', address: '〒120-0034 東京都足立区千住２', lat: 35.7496420, lng: 139.8011450)
