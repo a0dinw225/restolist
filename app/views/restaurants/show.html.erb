@@ -1,0 +1,10 @@
+<div class="text-center mt-5">
+  <p><%= @restaurant.name %></p>
+  <p><%= @restaurant.address %></p>  
+</div>
+
+<div class="row">
+  <div class="col-sm-6 offset-sm-3 mx-auto">
+    <img src="<%= "/#{@restaurant.photo}" %>", class="img-fluid", alt="<%= @restaurant.photo %>">
+  </div>
+</div>
