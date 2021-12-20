@@ -3,7 +3,7 @@
     <%= hidden_field_tag :restaurant_id, restaurant.id %>
     <div class="d-flex">
       <div>
-        <%= f.submit 'とりけし', class: 'btn btn-info btn-sm' %>
+        <%= f.submit 'とりけし', class: 'btn btn-warning btn-sm' %>
       </div>
       <div class="ms-3 mt-1"><%= counts(restaurant) %></div>
     </div>
@@ -13,7 +13,7 @@
     <%= hidden_field_tag :restaurant_id, restaurant.id %>
     <div class="d-flex">
       <div>
-        <%= f.submit 'いいね', class: 'btn btn-success btn-sm' %>
+        <%= f.submit 'いいね', class: 'btn btn-info btn-sm' %>
       </div>
       <div>
         <div class="ms-3 mt-1"><%= counts(restaurant) %></div>
