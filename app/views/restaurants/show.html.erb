@@ -10,4 +10,28 @@
   <div class="offset-sm-8 col-sm-3 mt-3">
     <%= render 'likes/like_button', restaurant: @restaurant %>
   </div>
+  
+  <div class="text-center mt-5">
+    <p>Map</p>
+  </div>
+
+  <div class="offset-sm-6  col-sm-6 mx-auto mb-5">
+    <div id="map" style="width:620px; height:400px"></div>
+    <script type="text/javascript">
+    function initMap() {
+      var opts = {
+        zoom: 15,
+        center: new google.maps.LatLng(<%= @restaurant.lat.to_f %>, <%= @restaurant.lng.to_f %>)
+      };
+      var map = new google.maps.Map(document.getElementById("map"), opts);
+    }
+    </script>
+    
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLtjOYtLuod1FyH-RZ1z8DoPSURWo9KpI&callback=initMap">
+    </script>
+  </div>
+  <div class="text-center">
+    <p>コメント</p>
+  </div>
 </div>
