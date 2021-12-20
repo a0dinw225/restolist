@@ -19,6 +19,6 @@ class User < ApplicationRecord
   end
   
   def liked_by?(restaurant)
-      self.like_restaurants.include?(restaurant)
+    self.like_restaurants.include?(restaurant)
   end
 end

@@ -3,4 +3,6 @@
 <div class="text-center mt-5">
   <h1>行ってみたいお店</h1>
 </div>
-<%= render 'restaurants/restaurants', restaurants: @likes %>
+<% if @user.like_restaurants.any? %>
+  <%= render 'restaurants/restaurants', restaurants: @likes %>
+<% end %>
