@@ -5,4 +5,20 @@ class User < ApplicationRecord
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
                     uniqueness: { case_sensitive: false }
   has_secure_password
+  
+  has_many :likes
+  has_many :like_restaurants, through: :likes, source: :restaurant
+  
+  def like(restaurant)
+    self.likes.find_or_create_by(restaurant_id: restaurant.id)
+  end
+  
+  def unlike(restaurant)
+    like = self.likes.find_by(restaurant_id: restaurant.id)
+    like.destroy if like
+  end
+  
+  def liked_by?(restaurant)
+      self.like_restaurants.include?(restaurant)
+  end
 end

@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :require_user_logged_in, only: [:show]
   def show
     @user = User.find(params[:id])
+    @pagy, @likes = pagy(@user.like_restaurants.order(id: :desc), items: 3)
   end
 
   def new
