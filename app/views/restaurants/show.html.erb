@@ -19,11 +19,25 @@
     <div id="map" style="width:635px; height:400px"></div>
     <script type="text/javascript">
     function initMap() {
+      latlng = new google.maps.LatLng(<%= @restaurant.lat.to_f %>, <%= @restaurant.lng.to_f %>)
       var opts = {
         zoom: 15,
-        center: new google.maps.LatLng(<%= @restaurant.lat.to_f %>, <%= @restaurant.lng.to_f %>)
+        center: latlng
       };
       var map = new google.maps.Map(document.getElementById("map"), opts);
+      
+      var m_latlng = latlng
+      var marker = new google.maps.Marker({
+        position: m_latlng,
+        map: map
+      });
+      infoWindow = new google.maps.InfoWindow({
+              content: '<%= @restaurant.name %>'
+        });
+      marker.addListener('click', function() {
+            infoWindow.open(map, marker);
+            });
+          
     }
     </script>
     
@@ -32,20 +46,22 @@
     </script>
   </div>
   
-  <div class="text-center">
-    <p>コメント</p>
-  </div>
-  <div class="offset-sm-6  col-sm-6 mx-auto mb-5">
-    <%= form_with(model: [@restaurant, @post], class: 'message-form') do |f| %>
-      <%= f.text_area :content, class: 'form-control', rows: 5 %>
-      <%= f.submit '投稿', class: 'btn btn-primary w-100 mt-2' %>
-    <% end %>
-  </div>
+  <% unless current_user.name == "ゲストユーザー" %>
+    <div class="text-center">
+      <p>コメント</p>
+    </div>
+    <div class="offset-sm-6  col-sm-6 mx-auto mb-5">
+      <%= form_with(model: [@restaurant, @post], class: 'message-form') do |f| %>
+        <%= f.text_area :content, class: 'form-control', rows: 5 %>
+        <%= f.submit '投稿', class: 'btn btn-primary w-100 mt-2' %>
+      <% end %>
+    </div>
+  <% end %>
   <% if @posts.any? %>
     <div class="text-center mt-4">
       <p>コメント一覧</p>
     </div>
-    <div class="offset-sm-4 col-sm-4">
+    <div class="offset-sm-4 col-sm-5">
       <ul class="list-unstyled mt-2">
         <% @posts.each do |post| %>
           <li>
