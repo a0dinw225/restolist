@@ -7,7 +7,7 @@ class PostsController < ApplicationController
       flash[:success] = 'コメントしました。'
       redirect_to restaurant_path(@restaurant)
     else
-      flash.now[:danger] = 'コメントに失敗しました。'
+      flash[:danger] = 'コメントに失敗しました。'
       redirect_back(fallback_location: restaurants_path)
     end
   end

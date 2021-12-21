@@ -5,4 +5,8 @@
 </div>
 <% if @user.like_restaurants.any? %>
   <%= render 'restaurants/restaurants', restaurants: @likes %>
+<% else %>
+  <div class="text-center mt-5">
+    <p>気になるレストランを探していいねしましょう</p>
+  </div>
 <% end %>
