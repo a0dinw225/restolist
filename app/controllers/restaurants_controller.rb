@@ -7,6 +7,6 @@ class RestaurantsController < ApplicationController
   def show
     @restaurant = Restaurant.find(params[:id])
     @post = Post.new
-    @posts = @restaurant.posts.order(created_at: :desc)
+    @pagy,@posts = pagy(@restaurant.posts.order(created_at: :desc), items: 5)
   end
 end
