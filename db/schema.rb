@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_19_121916) do
+ActiveRecord::Schema.define(version: 2021_12_21_051620) do
 
   create_table "likes", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 2021_12_19_121916) do
     t.index ["restaurant_id"], name: "index_likes_on_restaurant_id"
     t.index ["user_id", "restaurant_id"], name: "index_likes_on_user_id_and_restaurant_id", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "posts", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "restaurant_id", null: false
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["restaurant_id"], name: "index_posts_on_restaurant_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "restaurants", charset: "utf8mb4", force: :cascade do |t|
@@ -42,4 +52,6 @@ ActiveRecord::Schema.define(version: 2021_12_19_121916) do
 
   add_foreign_key "likes", "restaurants"
   add_foreign_key "likes", "users"
+  add_foreign_key "posts", "restaurants"
+  add_foreign_key "posts", "users"
 end

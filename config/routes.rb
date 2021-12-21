@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root to: 'toppages#index'
   
-  resources :restaurants, only: [:index, :show]
+  resources :restaurants, only: [:index, :show] do
+    resources :posts, only: [:create, :destroy]
+  end
   
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
@@ -15,4 +17,5 @@ Rails.application.routes.draw do
     end
   end
   resources :likes, only: [:create, :destroy]
+  resources :posts, only: [:create, :destroy]
 end

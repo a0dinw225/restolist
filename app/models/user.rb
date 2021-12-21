@@ -8,6 +8,7 @@ class User < ApplicationRecord
   
   has_many :likes
   has_many :like_restaurants, through: :likes, source: :restaurant
+  has_many :posts, dependent: :destroy
   
   def like(restaurant)
     self.likes.find_or_create_by(restaurant_id: restaurant.id)

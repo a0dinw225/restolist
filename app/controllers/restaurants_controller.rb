@@ -6,5 +6,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    @post = Post.new
+    @posts = @restaurant.posts.order(created_at: :desc)
   end
 end

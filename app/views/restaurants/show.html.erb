@@ -16,7 +16,7 @@
   </div>
 
   <div class="offset-sm-6  col-sm-6 mx-auto mb-5">
-    <div id="map" style="width:620px; height:400px"></div>
+    <div id="map" style="width:635px; height:400px"></div>
     <script type="text/javascript">
     function initMap() {
       var opts = {
@@ -31,7 +31,32 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLtjOYtLuod1FyH-RZ1z8DoPSURWo9KpI&callback=initMap">
     </script>
   </div>
+  
   <div class="text-center">
     <p>コメント</p>
   </div>
+  <div class="offset-sm-6  col-sm-6 mx-auto mb-5">
+    <%= form_with(model: [@restaurant, @post], class: 'message-form') do |f| %>
+      <%= f.text_area :content, class: 'form-control', rows: 5 %>
+      <%= f.submit '投稿', class: 'btn btn-primary w-100 mt-2' %>
+    <% end %>
+  </div>
+  <% if @posts.any? %>
+    <div class="text-center mt-4">
+      <p>コメント一覧</p>
+    </div>
+    <div class="offset-sm-4 col-sm-4">
+      <ul class="list-unstyled mt-2">
+        <% @posts.each do |post| %>
+          <li>
+            <%= post.user.name %><span class="text-muted"> <%= post.created_at %></span>
+          </li>
+          <p class="mt-1"><%= post.content %></p>
+          <% if current_user == post.user %>
+            <%= link_to "削除", post, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm mb-4' %>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 </div>
