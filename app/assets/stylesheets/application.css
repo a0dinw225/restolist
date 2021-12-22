@@ -16,3 +16,13 @@
 img {
     padding-bottom: 5px;
 }
+
+.symbolmark {
+    width: 5%;
+    height: 5%;
+}
+
+.main-visual {
+    width: 100%;
+    height: 100%;
+}

@@ -3,11 +3,11 @@
     <div class="container-fluid ps-5 pe-5">
       <div>
         <% if logged_in? %>
-          <%= link_to(image_tag("symbolmark.png", width: "5%", height: '5%', alt: "symbolmark", align: "top" ), "/") %>
-        <a class="navbar-brand" href="/restaurants">RESTOLIST</a>
+          <a href="/restaurants"><img src="/symbolmark.png" alt="symbolmark.png" class="symbolmark"></a>
+          <a class="navbar-brand" href="/restaurants">RESTOLIST</a>
         <% else %>
-          <%= link_to(image_tag("symbolmark.png", width: "5%", height: '5%', alt: "symbolmark", align: "top" ), "/") %>
-        <a class="navbar-brand" href="/">RESTOLIST</a>
+          <a href="/"><img src="/symbolmark.png" alt="symbolmark.png" class="symbolmark"></a>
+          <a class="navbar-brand" href="/">RESTOLIST</a>
         <% end %>
       </div>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
