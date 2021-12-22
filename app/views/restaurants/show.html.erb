@@ -16,7 +16,12 @@
   </div>
 
   <div class="offset-sm-6  col-sm-6 mx-auto mb-5">
-    <div id="map" style="width:635px; height:400px"></div>
+    <div class="map-wrapper">
+      <div id="map-canvas">
+        <div id="map" style="width:635px; height:400px"></div>
+      </div>
+    </div>
+    
     <script type="text/javascript">
     function initMap() {
       latlng = new google.maps.LatLng(<%= @restaurant.lat.to_f %>, <%= @restaurant.lng.to_f %>)
