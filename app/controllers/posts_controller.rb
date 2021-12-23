@@ -8,7 +8,8 @@ class PostsController < ApplicationController
       redirect_to restaurant_path(@restaurant)
     else
       flash[:danger] = 'コメントに失敗しました。'
-      redirect_back(fallback_location: restaurants_path)
+      session[:error] = post.errors.full_messages
+      redirect_back(fallback_location: restaurant_path(@restaurant))
     end
   end
   

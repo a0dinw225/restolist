@@ -1,3 +1,18 @@
+<% if session[:error] %>
+  <div class="row">
+    <div class="col-sm-6 offset-sm-3">
+      <div id="error_explanation" class="alert alert-warning">
+        <ul class="errors">
+          <% session[:error].each do |e| %>
+            <li><%= e%></li>
+          <% end %>
+        </ul>
+      <%= session[:error] = nil %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
 <div class="text-center mt-5">
   <p><%= @restaurant.name %></p>
   <p><%= @restaurant.address %></p>  
@@ -22,7 +37,7 @@
       </div>
     </div>
     
-    <script type="text/javascript">
+    <script>
     function initMap() {
       latlng = new google.maps.LatLng(<%= @restaurant.lat.to_f %>, <%= @restaurant.lng.to_f %>)
       var opts = {
@@ -67,9 +82,9 @@
           <li>
             <%= post.user.name %><span class="text-muted"> <%= post.created_at %></span>
           </li>
-          <p class="mt-1"><%= safe_join(post.content.split("\n"),tag(:br)) %></p>
+          <li class="mt-1"><%= safe_join(post.content.split("\n"),tag(:br)) %></li>
           <% if current_user == post.user %>
-            <%= link_to "削除", post, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm mb-4' %>
+            <li class="mt-1"><%= link_to "削除", post, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm mb-4' %></li>
           <% end %>
         <% end %>
       </ul>
