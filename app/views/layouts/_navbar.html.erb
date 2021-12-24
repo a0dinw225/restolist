@@ -1,13 +1,11 @@
 <header class="mb-4">
   <div class="navbar navbar-expand-sm navbar-dark bg-danger">
-    <div class="container-fluid ps-5 pe-5">
+    <div class="container-fluid ps-3 pe-3">
       <div>
         <% if logged_in? %>
-          <a href="/restaurants"><img src="/symbolmark.png" alt="symbolmark.png" class="symbolmark"></a>
-          <a class="navbar-brand" href="/restaurants">RESTOLIST</a>
+          <a href="/restaurants"><img src="/logo.png" alt="log.png" class="logo navbar-brand"></a>
         <% else %>
-          <a href="/"><img src="/symbolmark.png" alt="symbolmark.png" class="symbolmark"></a>
-          <a class="navbar-brand" href="/">RESTOLIST</a>
+          <a href="/"><img src="/logo.png" alt="logo.png" class="logo navbar-brand"></a>
         <% end %>
       </div>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
