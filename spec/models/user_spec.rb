@@ -39,6 +39,14 @@ RSpec.describe User, type: :model do
       expect(@user[:email]).to eq('user@example.com')
     end
     
+    it "有効なメールアドレスならOK" do
+      valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org first.last@foo.jp alice+bob@baz.cn]
+      valid_addresses.each do |valid_address|
+        @user.email = valid_address
+        expect(@user).to be_valid
+      end
+    end
+    
     it '空ならNG' do
       @user.email = nil
       expect(@user.valid?).to eq(false)
@@ -48,10 +56,16 @@ RSpec.describe User, type: :model do
       @user.email = 'a' * 244 + '@example.com'
       expect(@user.valid?).to eq(false)
     end
-
-    it '無効なメールアドレスならOK' do
+    
+    it '無効なメールアドレスならNG' do
       @user.email = 'user.name@example.'
       expect(@user.valid?).to eq(false)
+    end
+    
+    it '重複するメールアドレスの拒否' do
+      dumplicate_user = @user.dup
+      @user.save
+      expect(dumplicate_user.valid?).to eq(false)
     end
   end
 
@@ -71,5 +85,5 @@ RSpec.describe User, type: :model do
       expect(@user.valid?).to eq(false)
     end
   end
-
+  
 end
