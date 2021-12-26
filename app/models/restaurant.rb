@@ -1,6 +1,6 @@
 class Restaurant < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
-  validates :photo, presence: true, length: { maximum: 50 }
+  validates :photo, presence: true, length: { minimum: 5, maximum: 50 }
   validates :address, presence: true, length: { maximum: 50 }
   
   has_many :likes, dependent: :destroy

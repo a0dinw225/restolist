@@ -24,6 +24,7 @@ Webサービス機能一覧
 * セッション管理(Cookie)
 * データベース(開発環境: MySQL, 本番環境: PostgreSQL)
 * Heroku(本番環境のデプロイ)
+* RSpec(テストコード)
  
 
 ## DEMO
