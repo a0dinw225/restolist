@@ -42,6 +42,10 @@ Webサービス機能一覧
 * ユーザーがどういったWebサービスなのか登録する前に覗きたい方が多いと考え一部機能を制限しメールアドレスなどの登録が不要でサービスが利用できるゲストログインを実装した。  
 * ユーザビリティを考慮してユーザーが直感的に操作しやすい機能やUIを設計した。
 
+## ER図
+
+<img width="728" alt="スクリーンショット 2021-12-27 21 34 45" src="https://user-images.githubusercontent.com/93024617/147472340-807d2fec-6f9a-4642-b56d-7a9cac94b1a9.png">
+
 ## Requirement(要件)
 
 * HTML5
@@ -99,6 +103,140 @@ sudo apt update && sudo apt install yarn
  
 クラウドでの動作方法
  
+
+MySQLサーバーの起動
+
+```bash
+sudo service mysql start
+```
+
+起動状態確認
+
+```bash
+sudo service mysql status
+```
+
+停止
+
+```bash
+sudo service mysql stop
+```
+
+
+MySQLの文字化け対策
+
+```bash
+cat /etc/mysql/mysql.conf.d/mysqld.cnf | sed -e '/utf8/d' | sed -e '/sql_mode/d' | sed -e '$acharacter-set-server=utf8\nsql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' | sudo tee /etc/mysql/mysql.conf.d/mysqld.cnf
+```
+
+上記のコマンドを実行すると、下記のようなMySQLの設定が 、/etc/mysql/mysql.conf.d/mysqld.cnf ファイルの`[mysqld]`と書かれた欄に追加される。これにより、MySQLのデータベースで保存されるデータに日本語を含むことができるようになる。
+
+```bash
+character-set-server=utf8
+sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+```
+
+
+ユーザーの追加
+* ユーザ名：`dbuser`  
+* パスワード：`dbpass`
+
+(1) `sudo mysql -u root`でMySQLにログインする
+
+(2) mysql>の表示に続けて、以下のコマンドをコピペで入力し、実行
+
+このコマンドにより、dbuserという名前のユーザをMySQLに追加するとともに、MySQLの管理者権限（何でも実行できる権限）を付与する。
+```bash
+GRANT ALL PRIVILEGES ON *.* TO 'dbuser'@'localhost' IDENTIFIED BY 'dbpass' WITH GRANT OPTION;
+```
+
+(3) `exit`で一度MySQLからログアウトする
+
+設定を反映させるためにMySQLサーバを再起動する
+
+ターミナルで実行してMySQLサーバを再起動
+
+```bash
+sudo service mysql restart
+```
+
+文字化け対策ができているかの確認
+
+ターミナルで実行してMySQLサーバに接続
+
+```bash
+sudo mysql -u root
+```
+
+MySQLサーバに接続して実行
+
+```bash
+mysql> show variables like "chara%";
+```
+
+上記show variablesの出力結果：
+
+```bash
++--------------------------+----------------------------+
+| Variable_name            | Value                      |
++--------------------------+----------------------------+
+| character_set_client     | utf8                       |
+| character_set_connection | utf8                       |
+| character_set_database   | utf8                       |
+| character_set_filesystem | binary                     |
+| character_set_results    | utf8                       |
+| character_set_server     | utf8                       |
+| character_set_system     | utf8                       |
+| character_sets_dir       | /usr/share/mysql/charsets/ |
++--------------------------+----------------------------+
+```
+
+上記のように、utf8が表示されていればOK。latin1が表示されていれば設定ファイルを作成できていないか、MySQLサーバを再起動できていないかのどちらかになる。
+
+
+dbuserが追加されているか確認
+
+```bash
+mysql> SELECT Host, User FROM mysql.user WHERE User = 'dbuser';
+```
+
+出力結果：
+```bash
++-----------+--------+
+| Host      | User   |
++-----------+--------+
+| localhost | dbuser |
++-----------+--------+
+```
+
+プロジェクトをクローンする
+
 ```bash
 git clone https://github.com/a0dinw225/restolist.git
 ```
+
+データベースの作成
+
+Railsサーバを終了し、以下の1行のコマンドを実行する
+
+```bash
+rails db:create
+```
+出力結果：
+
+```bash
+Created database 'lestolist_development'
+Created database 'lestolist_test'
+```
+
+もし、 rails db:create したときにエラーが発生した場合には、 `sudo service mysql status` でMySQLサーバが起動しているか確認。起動していなければ、 `sudo service mysql start` コマンドを実行する。
+
+サーバを起動してデータベースの接続を確認
+
+Railsのコマンドによってサーバーを起動する
+
+```bash
+rails s
+```
+
+Webサービスが表示されればOK
