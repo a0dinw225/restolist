@@ -11,11 +11,7 @@ Rails.application.routes.draw do
   post 'guest_login', to: 'guest_sessions#create'
   
   get 'signup', to: 'users#new'
-  resources :users, only: [:index, :show, :create] do
-    member do
-      get :likes
-    end
-  end
+  resources :users, only: [:index, :show, :create] 
   resources :likes, only: [:create, :destroy]
   resources :posts, only: [:create, :destroy]
 end
